@@ -53,3 +53,13 @@ neutron subnet-update --allocation-pool start=192.168.2.50,end=192.168.2.60 my_n
 
 # Confirm the updated subnet allocation pool.
 neutron subnet-show <subnet_id>
+
+>  source openrc-hr
+>  neutron net-create my-new-network
+>  neutron net-list
+>  neutron subnet-create --name my-new-subnet my-new-network 192.0.2.0/24 --dns-nameserver 8.8.8.8
+>  neutron subnet-list
+>  neutron subnet-show my-new-subnet
+>  neutron subnet-update --allocation-pool start=192.0.2.50,end=192.0.2.60 my-new-subnet
+>  neutron router-list
+>  neutron security-group-list
