@@ -50,3 +50,20 @@ glance image-update --min-ram 512 <image_id>
 
 # Update the required Hypervisor to qemu for my_favorite_image.
 glance image-update --property hypervisor_type=qemu <image_id>
+
+>  source openrc-accounting
+>  openstack token issue
+>  export
+>  glance image-list
+>  glance image-show 3b091743-2785-4d93-a206-bc3011d5f31b
+>  wget http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
+>  file *.img
+>  glance image-create --name my-favorite-image --file cirros-0.3.3-x86_64-disk.img --container-format bare --disk-format qcow2
+>  glance image-show 323ff529-b12a-481e-987f-290505589663
+>  openstack project show a6993445403f4c518db5def42f5d904a
+>  glance image-download --file my-favorite-image.img --progress 323ff529-b12a-481e-987f-290505589663
+>  glance image-list
+>  openstack project list
+>  glance member-create 323ff529-b12a-481e-987f-290505589663 f6cb3a4866c543119267cef93b592eb5
+>  glance member-list --image-id 323ff529-b12a-481e-987f-290505589663
+>  glance image-show 323ff529-b12a-481e-987f-290505589663
