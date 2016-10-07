@@ -1,0 +1,29 @@
+
+# Source the human_resources credentials file
+source openrc_human_resources
+
+# Verify you are in the human_resources project
+export
+
+# Verify you can retrieve a token scoped to the human_resources project
+openstack token issue
+
+# Attempt to attach the cinder volume hr_volume to nova instance2
+nova volume-attach <instance_id> <volume_id>
+
+# Copy the request-id from the error output
+
+# List all running containers
+lxc-ls --fancy
+
+# Attach to the nova-api container
+lxc-attach -n <nova_api_container_name>
+
+# Grep for the request-id in the logs
+grep -nr <request_id> /var/log/nova/nova-*
+
+# Exit the container
+exit
+
+# Also try this
+grep -nr <request_id> /openstack/log/*

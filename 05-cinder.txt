@@ -1,0 +1,24 @@
+
+# Source the human_resources credentials file.
+source openrc_human_resources
+
+# Verify you are in the human_resources project.
+export
+
+# Verify you can retrieve a token for the human_resources project.
+openstack token issue
+
+# List all current cinder volumes available to the human_resources project.
+cinder list --tenant <human_resources_project_id>
+
+# Create a new volume called hr_volume thats 1GB.
+cinder create 1 --name hr_volume
+
+# Attach hr_volume to instance3.
+nova volume-attach <instance_id> <volume_id>
+
+# Create a snapshot of volume1 called volume1_snapshot.
+cinder snapshot-create <volume_id> --name volume1_snapshot
+
+# Verify the snapshot has been created.
+cinder snapshot-list

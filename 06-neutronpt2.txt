@@ -1,0 +1,59 @@
+
+# Source the human_resources credentials file.
+source openrc_human_resources
+
+# Verify you are in the human_resources project.
+export
+
+# Verify you can retrieve a token scoped to the human_resources project.
+openstack token issue
+
+# View all networks accessible to the human_resources project.
+neutron net-list --tenant_id <human_resources_project_id>
+
+# View all subnets accessible to the human_resources project.
+neutron subnet-list --tenant_id <human_resources_project_id>
+
+# View all routers accessible to the human_resources project.
+neutron router-list --tenant_id <human_resources_project_id>
+
+# Get console access to instance3.
+nova get-spice-console instance3 spice-html5
+
+# Copy and paste the link into your browser.
+# Login with username: cirros, password: cubswin:)
+# Once logged in, attempt to ping openstack.org
+# It should fail.
+
+# Create a new router.
+neutron router-create hr_router
+
+# Add my_new_subnet to the hr_router.
+neutron router-interface-add <router_id> <subnet_id>
+
+# View the port-list for hr_router.
+neutron router-port-list hr_router
+
+# Set the gateway of the router to the public net.
+neutron router-gateway-set <router_id> <public_net_id>
+
+# From your instance3 console, attempt to ping openstack.org again.
+# You should receive a response.
+
+# View the list of all neutron ports associated with the human_resources project.
+neutron port-list
+
+# Associate a floating ip with instance3.
+neutron floatingip-create --port-id <port_id> public
+
+# View current floating ip associations.
+neutron floatingip-list
+
+# Source as the admin user.
+source openrc
+
+# Create a new provider network owned by the admin tenant called new_public.
+neutron net-create new_public --router:external
+
+# Explore other options for creating a provider network.
+neutron help net-create

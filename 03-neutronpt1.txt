@@ -1,0 +1,55 @@
+
+# Create a new credential file for the human_resources project.
+cp openrc_accounting openrc_human_resources
+
+# Edit the human_resources openrc file with the human_resources project.
+vim openrc_human_resources
+
+# Source the human_resources credentials file.
+source openrc_human_resources
+
+# Verify you are in the human_resources project.
+export
+
+# Verify you can retrieve a token scoped to the human_resources project.
+openstack token issue
+
+# View all networks accessible to the human_resources project.
+neutron net-list --tenant_id <human_resources_project_id>
+
+# View the details of the private network.
+neutron net-show <private_net_id>
+
+# View the details of the private-subnet.
+neutron subnet-show <subnet_id>
+
+# List the details of the public network.
+neutron net-show <public_net_id>
+
+# List all routers.
+neutron router-list --tenant_id <human_resources_project_id>
+
+# View all security-groups in the human_resources project.
+neutron security-group-list --tenant_id <human_resources_project_id>
+
+# Edit the human_resource project's default security group to allow incoming 443 (HTTPS) from anywhere.
+# Hint: neutron help security-group-rule-create.
+neutron security-group-rule-create --direction ingress --ethertype ipv4 --protocol tcp --port-range-min 443 --port-range-max 443 --remote-ip-prefix 0.0.0.0/0 <default_security_group_id>
+
+# Confirm the rule was created.
+neutron security-group-list --tenant_id <human_resources_project_id>
+
+# Create a new tenant network.
+# Hint: neutron help net-create.
+neutron net-create my_new_network
+
+# Create a new tenant subnet called my_new_subnet and attach it to my_new_network.
+# Hint: neutron help subnet-create.
+neutron subnet-create --name my_new_subnet my_new_network 192.168.2.0/24 --dns-nameserver 8.8.8.8
+
+# Set my_new_subnet's allocation pool to 192.168.2.50-192.168.2.60.
+# Hint: neutron help subnet-update.
+neutron subnet-update --allocation-pool start=192.168.2.50,end=192.168.2.60 my_new_subnet
+
+# Confirm the updated subnet allocation pool.
+neutron subnet-show <subnet_id>

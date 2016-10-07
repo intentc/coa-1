@@ -1,0 +1,49 @@
+
+# Source the human_resources credentials file.
+source openrc_human_resources
+
+# Verify you are in the human_resources project.
+export
+
+# Verify you can retrieve a token for the human_resources project.
+openstack token issue
+
+# View all flavors available to the human_resources project.
+nova flavor-list
+
+# Create a new public Nova flavor called awesome_flavor.
+# It should have id 100.
+# It should also have 512MB RAM, 1GB Disk, and 1 VCPU.
+# Only users with admin role can create flavors.
+nova flavor-create awesome_flavor 100 512 1 1 --is-public true
+
+# View the newly created flavor.
+nova flavor-list
+
+# View all instances owned by the human_resources project.
+nova list --tenant <human_resources_project_id>
+
+# Create a new keypair for the admin user in the human_resources project.
+nova keypair-add my_new_keypair > my_new_keypair.pem
+
+# Confirm the keypair was created.
+nova keypair-list
+
+# Suspend instance1.
+nova suspend <instance1_id>
+
+# Start up instance2.
+nova start <instance2_id>
+
+# Boot an instance called instance3 on my_new_network.
+# Use the cirros image and m1.tiny flavor.
+# Also force injection of your previously created keypair called my_new_keypair.
+# Hint: nova help boot.
+nova boot --flavor 1 --image cirros --key-name my_new_keypair --nic net-id=<net_id> instance3
+
+# Create a snapshot of instance3.
+# Name the snapshot instance3backup.
+nova image-create <instance_id> instance3backup
+
+# Verify the snapshot now appears in Glance.
+glance image-list --owner <human_resources_project_id>

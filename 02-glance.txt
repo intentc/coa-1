@@ -1,0 +1,52 @@
+
+# List all projects in the OpenStack environment.
+openstack project list
+
+# Create a new credential file for the accounting project.
+cp openrc openrc_accounting
+
+# Edit the accounting openrc file with the accouting project.
+<vim,nano,etc> openrc_accounting
+
+# Source the accounting credentials file.
+source openrc_accounting
+
+# Verify you are in the accounting project.
+export
+
+# Verify you can retrieve a token scoped to the accounting project.
+openstack token issue
+
+# List all images
+glance image-list --owner <account_project_id>
+
+# Show the details of the cirros image.
+glance image-show <cirros_id>
+
+# Download a new Cirros image from the official Cirros website.
+wget http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
+
+# Upload/registry the image into Glance.
+# Name the image my_favorite_image.
+# Hint: glance help image-create.
+glance image-create --disk-format qcow2 --container-format bare --file cirros-0.3.3-x86_64-disk.img --name my_favorite_image
+
+# Verify image has been successfully uploaded to the accounting project.
+glance image-list --owner <account_project_id>
+
+# Share this image with the marketing project.***
+# Hint: To receive the id's of all projects source as the admin user and list all projects and source back to accounting.
+glance member-create <image_id> <marketing_project_id>
+
+# Download my_favorite_image and place it into a the /tmp directory.***
+# Hint: glance help image-download.
+glance image-download --file /tmp/my_favorite_image.img <image_id>
+
+# Compare the md5sum of the downloaded image to the image stored in Glance.
+md5sum /tmp/my_favorite_image.img
+
+# Update the minimum RAM requirements on my_favorite_image to 512MB.
+glance image-update --min-ram 512 <image_id>
+
+# Update the required Hypervisor to qemu for my_favorite_image.
+glance image-update --property hypervisor_type=qemu <image_id>

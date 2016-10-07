@@ -1,0 +1,89 @@
+
+# Become the root user.
+sudo su -
+
+# View the contents of the openrc file.
+cat /root/openrc
+
+# Source the openrc file.
+source openrc
+
+# Show current variables set in the your bash session to confirm the user/project.
+export
+
+# Verify you can get a token.
+openstack token issue
+
+# Verify you can retrieve the catalog.
+openstack catalog list
+
+# List all current domains.
+openstack domain list
+
+# List all projects in the default domain.
+openstack project list --domain default
+
+# List all users in the default domain.
+openstack user list --domain default
+
+# List all users in the current project.
+openstack user list --project accounting
+
+# View Jenny Smith's user details.
+openstack user show jennys
+
+# Edit user details for Jenny.
+# Update the email to jenny@example.com.
+# Disable the account.
+openstack user set --email jenny@example.com --disable <jenny_user_id>
+
+# Confirm jenny's user details.
+openstack user show jennys
+
+# Show all quotas in the accounting project.
+openstack quota show <account_project_id>
+
+# Increase the number of instances that can be spun up in the accounting project from 10 to 20.
+openstack quota set --instances 20 <accounting_project_id>
+
+# Create a new domain called starbucks.***
+openstack domain create starbucks
+
+# Create a new project called finance inside the starbucks domain.***
+openstack project create --domain starbucks finance
+
+# Create a new group inside the starbucks domain called interns.***
+openstack group create --domain starbucks interns
+
+# Add the _member_ role to the interns group.***
+openstack role add --domain starbucks --group interns _member_
+
+# Create a user named seymourb inside the finance project within the starbucks domain.***
+openstack user create --domain starbucks --project finance --password mypassword --enable seymourb
+
+# Add seymour to the interns group.***
+openstack group add user interns seymourb
+
+# List all services.
+openstack service list
+
+# List all endpoints.
+openstack endpoint list
+
+# View the service catalog again.
+openstack catalog list
+
+# Create a brand new service called "Donuts".***
+openstack service create --name Donuts --description "OpenStack Donuts" PastryAsAService
+
+# Create the public identity endpoint for "Donuts".***
+openstack endpoint create --region RegionOne Donuts public http://$MY_PUBLIC_IP:4545/v3
+
+# Create the internal identity endpoint for "Donuts".***
+openstack endpoint create --region RegionOne Donuts internal http://$MY_IP:4545/v3
+
+# Create the admin identity endpoint for "Donuts".***
+openstack endpoint create --region RegionOne Donuts admin http://$MY_IP:4545/v3
+
+# List the service catalog.***
+openstack catalog list

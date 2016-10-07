@@ -1,0 +1,50 @@
+
+# Source as the admin in the admin project
+source openrc
+
+# Show the Swift server endpoints
+openstack catalog show object-store
+
+# Show statistics on the account
+swift stat
+
+# To avoid the warning, provide the Region
+echo "export OS_REGION_NAME=RegionOne" | tee -a openrc
+
+# Source the openrc_marketing file again to set the region.
+source openrc
+
+# Verify you no longer receive the warning.
+swift list
+
+# Create a container called testcontainer
+swift post testcontainer
+
+# Confirm the container was created.
+swift list
+
+# Upload an object to the container
+cat > test.txt <<EOF
+This is a test swift file...
+EOF
+
+swift upload testcontainer test.txt
+
+# Download (and view) the file
+swift download testcontainer test.txt -o -
+
+# Add an ACL to allow any user (even anonymous) to read and get listings of objects in the container.***
+# Hint: swift post --help.
+swift post testcontainer -r ".r:*,.rlistings"
+
+# Add a write ACL to allow any user from within the accounting project to write objects to the container.***
+swift post testcontainer -w "accounting:*"
+
+# Set test.txt to expire at 1505943383 (9/20/2017, 21:36:23)***
+swift post testcontainer test.txt -H "X-Delete-At:1505943383"
+
+# Verify the header was applied
+swift stat testcontainer test.txt
+
+# Remove the X-Delete-At header***
+swift post testcontainer test.txt -H "X-Remove-Delete-At: "

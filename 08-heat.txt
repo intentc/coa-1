@@ -1,0 +1,30 @@
+
+# Source the human_resources credentials file.
+source openrc_human_resources
+
+# Verify you are in the human_resources project.
+export
+
+# Verify you can retrieve a token scoped to the human_resources project.
+openstack token issue
+
+# Output the contents of the test-stack.yml Heat Orchestration Template.
+cat test-stack.yml
+
+# Deploy a stack called my_favorite_stack.  Use the cirros image and m1.tiny flavor.
+# Attach the available volume_1 cinder volume.  Ensure the instance is booted on my_new_network.
+# Also call the server my_heat_server.
+heat stack-create -f test-stack.yml -P ServerName=my_heat_server -P Image=<image_id> -P Flavor=<flavor_name> -P Net=<net_id> -P Volume=<volume_id> my_favorite_stack
+
+# List all stacks.
+heat stack-list -o
+
+# Show details of the deployed stack.
+heat stack-show my_favorite_stack
+
+# After the status changes to complete, update the stack with new flavor m1.small.
+heat stack-update -f test-stack.yml -P ServerName=my_heat_server -P Image=<image_id> -P Flavor=<flavor_name> -P Net=<net_id> -P Volume=<volume_id> my_favorite_stack
+
+# Show details of the updated stack.
+# Status should change to update_complete.
+heat stack-show my_favorite_stack
