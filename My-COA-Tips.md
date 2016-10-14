@@ -57,9 +57,9 @@ The _openrc_ file you will need, resides in the _root_ account. The COA Exam ins
 
 Note: Whereas you can to download the _openrc_ file by going to: Project > Access & Security > API Access, the downloaded file lands on your laptop -- rather than the OpenStack Server, where you need it.
 
-### Terminal Multiplexer: _tmux_ or _screen_
+### Terminal Multiplexer: _tmux_
 
-For troubleshooting Exercises, you will need to locate and copy strings from LXC container logs, and paste those strings into specified files on the OpenStack Server. As this requires many copy and paste operations, you will likely want to run _tmux_ or _screen_ so you can have concurrent sessions logged in to LXC container(s) and the OpenStack Server.
+For troubleshooting Exercises, you will need to locate and copy strings from LXC container logs, and paste those strings into specified files on the OpenStack Server. As this requires many copy and paste operations, you will likely want to run _tmux_ so you can have concurrent sessions logged in to LXC container(s) and the OpenStack Server.
 
 _tmux_ is explicitly permitted, per the Candidate Handbook.
 
