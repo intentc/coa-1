@@ -97,9 +97,34 @@ You will frequently perform this sequence:
 
 Swift CLI syntax help (`help` or `--help` for `python-swiftclient`) has some mistakes, so you should refer to the OpenStack Documentation site.  Most of the following are covered in the online course, but you may want to visit [the docs](docs.openstack.org) for a deeper dive or refresher, as many of us do not use these every day.
 
-* Be sure you know all the Swift `read-acl` and `write-acl` syntax variants; specifically for referrers (`.r`), listings (`.rlistings`), projects, users, and user-within-project.
+* Be sure you know all the Swift `--read-acl` and `--write-acl` syntax variants; specifically for referrers (`.r`), listings (`.rlistings`), projects, and user-within-project.
+
+* Be sure to specify `--os-storage-url` when performing `swift download`.
 
 * Be sure you are familiar with the format for Extended HTML Request Headers such as `X-Delete-At` and `X-Delete-After`.
+
+### Adding Provider Networks
+
+The usage syntax fails to list all the configurable properties of a provider network. Here are three provider attributes that can be defined:
+
+* `--provider:network_type` -- flat, vlan, local, gre, and vxlan.
+
+* `--provider:physical_network` -- the physical interface that will be used to forward traffic through the host. The value specif ed here corresponds to the bridge_mappings or physical_interface_mappings option set in the LinuxBridge or Open vSwitch plugin configuration file.
+
+* `--provider:segmentation_id` -- the unique ID for the network.  If you are creating a VLAN, the value used for segmentation_id should be the 802.1q VLAN ID trunked to the host.
+
+Other attributes that can be set for provider networks include:
+
+* `--router:external` -- a Boolean value that, when set to true, allows the network to be utilized as a gateway network for Neutron routers. 
+
+* `--shared` -- a Boolean value that, when set to true, allows the network to be utilized between all tenants.
+
+Configuration file settings:
+
+```
+/etc/neutron/plugins/ml2/linuxbridge_agent.ini:
+physical_interface_mappings = flat:eth12,vlan:br-vlan
+```
 
 ### Deploy using _openstack-ansible_
 
