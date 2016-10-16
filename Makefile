@@ -16,7 +16,7 @@ spell aspell:
 	aspell check $(INPUT)
 
 clean:
-	$(RM) $(TARGETS)
+	$(RM) $(TARGETS) *.bak
 
 $(OUTPUT): $(INPUT)
 	pandoc --from $(FROM) --to $(TO) --output $(OUTPUT) $(INPUT)

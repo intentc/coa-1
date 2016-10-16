@@ -1028,15 +1028,7 @@ The change is to fix just the loop, to read that.
 
 Now issue a :
 
-Losetup /dev/loop4 /openstack/cinder.img
-
-Run:
-
-pvscan 
-
-should go the cinder-volumes group
-
-sudo service cinder-volume restart
+losetup /dev/loop4 /openstack/cinder.img; pvscan ; sudo service cinder-volume restart
 
 
 To provision your environment with the same resources in class, please copy paste the the following:

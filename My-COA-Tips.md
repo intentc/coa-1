@@ -1,4 +1,4 @@
-# Tips for taking the Certified OpenStack Administrator (COA) exam
+# Tips for the Certified OpenStack Administrator (COA) exam
 
 The COA Exam user interface takes some getting used to. The purpose of this document is to address those aspects of the user interface and testing environment that the writer found most troublesome, and whose learning consumed valuable time. This document is based on experience taking the exam on a MacBook Pro running Mac OS X "El Capitan" (10.11.6).
 
@@ -35,14 +35,30 @@ Caveats:
 
 ## OpenStack Web UI
 
-The Web UI is a modified version of the Horizon UI. Instead of having the Project selection at the top left, and the Login Session settings on the top right, it has:
+In the Exam environment, the Web UI (Horizon) is displayed in a narrow, collapsed window, where some UI components change location from where they appear in a wider window. For me, it was easy to forget which Project was currently selected. The narrow view has:
 
-* (Unlabeled) Project selection at the top left
+* Project selection at the top left
 
-* (Unlabeled) Session Login settings on the left, below the Project selection
+* Session Login settings, below the Project selection
 
-* _Project may default to an undesired setting._ **Verify the Project is "admin", and the Login Session is "admin".** Working within the wrong project may doom your chances of passing!
+_Project selection will likely default to an undesired setting._ **Verify the Project is "admin", and the Login Session is "admin".** Working within the wrong project may doom your chances of completing all exam exercises in the allotted time!
 
+___
+Normal (wide) view:
+
+![Normal (wide) view](horizon-normal.png)
+
+___
+Narrow view, collapsed:
+
+![Narrow view, collapsed](horizon-narrow-collapsed.png)
+
+___
+Narrow view, expanded:
+
+![Narrow view](horizon-narrow.png)
+
+___
 ## OpenStack Server Terminal tab
 
 ### LXC Containers
